@@ -9,8 +9,8 @@ function getNow(req: NextRequest): number {
   return Date.now();
 }
 
-export async function GET(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
-  const { id } = await params;
+export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
+  const id = params.id;
   const key = `paste:${id}`;
   const paste = await redis.hgetall(key);
   if (!paste || !paste.content) {
